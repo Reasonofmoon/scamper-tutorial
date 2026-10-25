@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사장님을 위한 SCAMPER 매트릭스</title>
+<meta property="og:title" content="사장님을 위한 SCAMPER 매트릭스">
+<meta property="og:description" content="동네 카페 사장님의 이야기로 배우는 소상공인용 SCAMPER 활용 튜토리얼">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%2780%27 font-size=%2780%27%3E%F0%9F%92%A1%3C/text%3E%3C/svg%3E">
+<meta name="description" content="아이디어를 부으면 매트릭스가 그려진다 — 동네 카페 사장님의 이야기로 배우는 소상공인용 SCAMPER 활용 튜토리얼">
+<style>
+:root{
+  --bg:#faf8f5; --card:#fff; --ink:#1f1b18; --sub:#6b625a; --line:#e8e2da;
+  --accent:#c8553d; --accent-soft:#f6e3dd; --green:#2f7a5b; --green-soft:#e3f0ea;
+  --amber:#b7791f; --amber-soft:#fdf1da; --blue:#2b6cb0; --blue-soft:#e4eefa;
+  --radius:16px; --shadow:0 6px 24px rgba(40,25,10,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+/* hero */
+.hero{background:linear-gradient(160deg,#2a1d16 0%,#4a2c20 55%,#c8553d 140%);color:#fff;padding:72px 0 64px}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.14);padding:4px 14px;border-radius:99px;font-size:14px;letter-spacing:.02em}
+.hero h1{font-size:clamp(30px,5.4vw,52px);line-height:1.2;margin:18px 0 14px;letter-spacing:-.02em}
+.hero p{max-width:640px;font-size:19px;opacity:.9;margin:0 0 28px}
+.btn{display:inline-block;background:#fff;color:#2a1d16;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:12px;margin:0 10px 10px 0}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.lens-strip{display:flex;gap:8px;flex-wrap:wrap;margin-top:36px}
+.lens-strip span{background:rgba(255,255,255,.12);border-radius:10px;padding:6px 12px;font-size:15px}
+.lens-strip b{font-size:18px;margin-right:4px;color:#ffd7c9}
+/* toc */
+.toc{position:sticky;top:0;z-index:20;background:rgba(250,248,245,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.toc .wrap{display:flex;gap:4px;overflow-x:auto;padding:10px 20px;white-space:nowrap}
+.toc a{text-decoration:none;color:var(--sub);font-size:14px;padding:6px 12px;border-radius:99px}
+.toc a:hover,.toc a.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+/* sections */
+section{padding:64px 0 8px}
+.chap{font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--accent);margin:0}
+h2{font-size:clamp(26px,4vw,36px);line-height:1.3;margin:6px 0 16px;letter-spacing:-.02em}
+h3{font-size:21px;margin:30px 0 8px}
+p{margin:0 0 14px}
+.lead{font-size:19px;color:#3c342d}
+.story{background:var(--amber-soft);border-left:5px solid var(--amber);border-radius:0 var(--radius) var(--radius) 0;padding:18px 22px;margin:22px 0}
+.story b{color:var(--amber)}
+.note{background:var(--blue-soft);border-radius:var(--radius);padding:14px 18px;margin:18px 0;font-size:16px}
+.warn{background:var(--accent-soft);border-radius:var(--radius);padding:14px 18px;margin:18px 0;font-size:16px}
+.shot{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin:22px 0}
+.shot img{width:100%;cursor:zoom-in}
+.shot figcaption{padding:12px 18px;font-size:14.5px;color:var(--sub);border-top:1px solid var(--line)}
+.shot figcaption b{color:var(--ink)}
+.chrome{display:flex;gap:6px;padding:10px 14px;background:#f1ece5;border-bottom:1px solid var(--line)}
+.chrome i{width:11px;height:11px;border-radius:50%;background:#d8cfc4;display:block}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.g2,.g3{grid-template-columns:1fr}body{font-size:16px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow)}
+/* lens cards */
+.lens{position:relative;overflow:hidden}
+.lens .big{position:absolute;right:12px;top:-14px;font-size:92px;font-weight:900;color:var(--accent-soft);line-height:1}
+.lens h4{margin:0;font-size:19px;position:relative}
+.lens h4 small{color:var(--sub);font-weight:500;font-size:13px;margin-left:6px}
+.lens .q{color:var(--accent);font-weight:700;margin:6px 0;position:relative}
+.lens .ex{font-size:15px;color:var(--sub);position:relative;margin:0}
+/* steps */
+.step{display:flex;gap:16px;align-items:flex-start;margin:18px 0}
+.step .n{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800}
+.step div p{margin:0}
+pre,code{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+pre{background:#231d19;color:#f5e9dd;border-radius:14px;padding:16px 18px;overflow-x:auto;font-size:14px;line-height:1.7;margin:16px 0}
+code.i{background:#efe8df;padding:2px 6px;border-radius:6px;font-size:.88em}
+/* hotspot screenshot */
+.hot{position:relative}
+.hot .pin{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;box-shadow:0 0 0 5px rgba(200,85,61,.25);animation:pulse 2.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 11px rgba(200,85,61,0)}}
+.legend{list-style:none;padding:0;margin:0;display:grid;gap:8px;grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.legend{grid-template-columns:1fr}}
+.legend li{display:flex;gap:10px;font-size:15px}
+.legend b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:13px}
+/* scatter */
+.viz{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin:22px 0}
+.viz svg{width:100%;height:auto;display:block}
+.pts{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 18px;margin-top:12px;font-size:14.5px}
+@media(max-width:760px){.pts{grid-template-columns:1fr}}
+.pts div{display:flex;gap:8px}
+.pts b{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px}
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+.tabs button{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:99px;cursor:pointer;color:var(--sub)}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
+.panel{display:none}.panel.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.pick{display:grid;gap:10px;margin:14px 0}
+.pick div{background:var(--green-soft);border-radius:12px;padding:12px 16px;font-size:15.5px}
+.pick b{color:var(--green)}
+/* table */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow);margin:20px 0}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f4efe8;font-size:13.5px}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:800;white-space:nowrap}
+/* checklist */
+.chk{list-style:none;padding:0;margin:18px 0}
+.chk li{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+.chk input{width:22px;height:22px;margin-top:4px;accent-color:var(--accent);flex:none}
+.chk li.done{opacity:.55;text-decoration:line-through}
+.chk strong{display:block}
+.prog{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 0}
+.prog i{display:block;height:100%;width:0;background:var(--green);transition:width .4s}
+footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
+/* lightbox */
+#lb{position:fixed;inset:0;background:rgba(20,12,8,.9);display:none;align-items:center;justify-content:center;z-index:99;padding:20px;cursor:zoom-out}
+#lb.on{display:flex}#lb img{max-height:94vh;border-radius:10px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">소상공인 아이디어 튜토리얼 · 가상 사례로 배우기</span>
+    <h1>“장사가 정체됐을 때,<br>아이디어를 <u style="text-decoration-color:#ffb199;text-underline-offset:6px">붓기만</u> 하세요.”</h1>
+    <p>동네 카페 ‘모모커피’ 사장님이 SCAMPER 매트릭스 하나로 14개의 아이디어를 쏟아내고, 그중 실제로 해볼 3가지를 고르기까지의 이야기.</p>
+    <a class="btn" href="https://devlog.moonlang.com/scamper-matrix/" target="_blank" rel="noopener">▶ 매트릭스 열어보기</a>
+    <a class="btn ghost" href="#story">이야기 시작</a>
+    <div class="lens-strip" aria-label="SCAMPER 7렌즈">
+      <span><b>S</b>대체</span><span><b>C</b>결합</span><span><b>A</b>응용</span><span><b>M</b>수정·확대</span><span><b>P</b>전용</span><span><b>E</b>제거·축소</span><span><b>R</b>역전·재배열</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="목차"><div class="wrap">
+  <a href="#story">0 이야기</a><a href="#lens">1 7가지 렌즈</a><a href="#tour">2 화면 둘러보기</a><a href="#s1">3 붓기</a><a href="#s2">4 보정</a><a href="#s3">5 빈 칸 채우기</a><a href="#s4">6 고르기</a><a href="#biz">7 업종별</a><a href="#cheat">8 치트시트</a><a href="#save">9 저장</a><a href="#plan">10 7일 플랜</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- 0. STORY -->
+<section id="story">
+  <p class="chap">CHAPTER 0 · 문제</p>
+  <h2>월요일 오후 3시, 텅 빈 카페</h2>
+  <p class="lead">모모커피 사장님은 5년째 같은 자리에서 같은 메뉴를 팝니다. 단골은 있지만 매출은 몇 달째 제자리. 새 아이디어를 내려고 해도 “뭘 해야 하지?”에서 머리가 멈춥니다.</p>
+  <div class="story"><b>왜 막힐까?</b> 아이디어가 없어서가 아니라 <b>같은 방향으로만 생각해서</b>입니다. “메뉴를 더 늘릴까?” 한 가지 방향만 돌고 있죠. 필요한 건 <b>생각의 방향을 강제로 바꿔주는 질문 7개</b> — 그게 SCAMPER입니다.</div>
+  <div class="grid g3">
+    <div class="card"><b>😵 막막함</b><p style="margin:6px 0 0;font-size:15px;color:var(--sub)">“뭐부터 생각하지?”</p></div>
+    <div class="card"><b>🔁 같은 생각 반복</b><p style="margin:6px 0 0;font-size:15px;color:var(--sub)">메뉴 늘리기, 할인하기, 또 할인…</p></div>
+    <div class="card"><b>🗂 정리 불가</b><p style="margin:6px 0 0;font-size:15px;color:var(--sub)">메모장에 흩어진 생각들</p></div>
+  </div>
+  <p class="note" style="margin-top:20px">💡 이 튜토리얼의 모모커피·보라꽃방 등은 <b>설명을 위한 가상 사례</b>입니다. 숫자·효과는 실제 성과가 아니라 ‘예시 점수’이며, 사장님 가게에 맞게 직접 바꿔 쓰세요.</p>
+</section>
+
+<!-- 1. LENSES -->
+<section id="lens">
+  <p class="chap">CHAPTER 1 · 도구 이해</p>
+  <h2>SCAMPER = 질문 7개짜리 돋보기</h2>
+  <p class="lead">내 가게를 7개의 돋보기로 차례로 비춰보세요. 아래 카드의 질문을 그대로 가게 이름과 붙여 읽으면 됩니다.</p>
+  <div class="grid g3" style="margin-top:20px">
+    <div class="card lens"><span class="big">S</span><h4>대체<small>Substitute</small></h4><p class="q">무엇을 바꿔치울까?</p><p class="ex">종이 쿠폰 → 카카오톡 스탬프<br>현장 판매 → 정기 구독</p></div>
+    <div class="card lens"><span class="big">C</span><h4>결합<small>Combine</small></h4><p class="q">무엇과 합칠까?</p><p class="ex">원두 + 드립백 선물세트<br>카페 + 옆 빵집 모닝세트</p></div>
+    <div class="card lens"><span class="big">A</span><h4>응용<small>Adapt</small></h4><p class="q">무엇을 응용·차용할까?</p><p class="ex">호텔 조식 트레이 → 주말 브런치<br>피트니스 횟수권 → 관리권</p></div>
+    <div class="card lens"><span class="big">M</span><h4>수정·확대<small>Modify/Magnify</small></h4><p class="q">바꾸거나 키우면?</p><p class="ex">점보 사이즈 신설<br>3,000원 미니 입문 상품</p></div>
+    <div class="card lens"><span class="big">P</span><h4>전용<small>Put to other use</small></h4><p class="q">다른 쓰임새는?</p><p class="ex">한가한 오후 홀 → 스터디룸 대관<br>커피박 → 방향제 굿즈</p></div>
+    <div class="card lens"><span class="big">E</span><h4>제거·축소<small>Eliminate</small></h4><p class="q">무엇을 뺄까?</p><p class="ex">메뉴 8개로 축소<br>서빙 없이 셀프 픽업</p></div>
+    <div class="card lens" style="grid-column:1/-1"><span class="big">R</span><h4>역전·재배열<small>Reverse/Rearrange</small></h4><p class="q">뒤집거나 재배열하면?</p><p class="ex">낮엔 카페, 밤엔 바 · 손님이 메뉴를 만든다 · 입구에 디저트를 먼저 보이게</p></div>
+  </div>
+  <div class="note">그런데 종이에 7칸을 그려서 쓰면 금방 지저분해집니다. 그래서 <b>‘씽킹 매트릭스’</b> 웹페이지를 씁니다. 설치도 회원가입도 없이, 열자마자 쓸 수 있어요.</div>
+</section>
+
+<!-- 2. TOUR -->
+<section id="tour">
+  <p class="chap">CHAPTER 2 · 화면 둘러보기</p>
+  <h2>화면은 딱 5곳만 보면 됩니다</h2>
+  <figure class="shot">
+    <div class="chrome"><i></i><i></i><i></i></div>
+    <div class="hot">
+      <img src="img/06-top.png" alt="씽킹 매트릭스 첫 화면 — 주제 입력창, 아이디어 입력창, 자동 배치 버튼, 프레임워크 선택, 통계 카드">
+      <span class="pin" style="left:50%;top:16%">1</span>
+      <span class="pin" style="left:50%;top:23.5%">2</span>
+      <span class="pin" style="left:2.4%;top:31.3%">3</span>
+      <span class="pin" style="left:2.4%;top:39.1%">4</span>
+      <span class="pin" style="left:96%;top:44%">5</span>
+    </div>
+    <figcaption><b>실제 화면 캡처.</b> 번호가 깜빡이는 곳을 순서대로 보세요.</figcaption>
+  </figure>
+  <ul class="legend">
+    <li><b>1</b><span><strong>주제</strong> — 오늘 풀 문제 한 줄. (예: 매출 올리기)</span></li>
+    <li><b>2</b><span><strong>아이디어 상자</strong> — 한 줄에 하나씩 붙여넣기</span></li>
+    <li><b>3</b><span><strong>▶ 자동 배치</strong> — 키워드로 7칸에 분류</span></li>
+    <li><b>4</b><span><strong>프레임워크 선택</strong> — SCAMPER ↔ 2축 표 등 틀 교체</span></li>
+    <li><b>5</b><span><strong>현황 카드</strong> — 개수 · 최다 칸 · 커버리지</span></li>
+  </ul>
+  <div class="note" style="margin-top:20px">🧭 <b>드롭다운에는</b> 오스본 체크리스트(9렌즈) · SCAMPER(7) · 식스햇 · 효과×실현 가능성 · 중요도×긴급도 · 커스텀이 들어 있습니다. 이 튜토리얼은 <b>SCAMPER(발산) → 2축(수렴)</b> 순서로 씁니다.</div>
+</section>
+
+<!-- 3. STEP 1 -->
+<section id="s1">
+  <p class="chap">STEP 1 · 발산</p>
+  <h2>머릿속 아이디어를 한 줄씩 붓는다</h2>
+  <p class="lead">정리하려 하지 마세요. 렌즈를 떠올리며 <b>떠오르는 대로, 한 줄에 하나</b>. 점수는 나중에 매겨도 됩니다.</p>
+  <img src="img/gif-typing.gif" alt="아이디어를 입력하고 자동 배치하는 과정" class="shot" style="padding:0;cursor:zoom-in;width:100%">
+  <p style="font-size:14.5px;color:var(--sub);margin-top:-8px">▲ 모모커피 사장님의 14줄 입력 → ▶ 자동 배치 (실제 화면을 프레임별로 캡처한 GIF)</p>
+  <h3>입력 형식 — 구분자는 <code class="i">|</code> 하나</h3>
+  <pre>제목 | 설명 | 세로점수(효과) | 가로점수(실현성)
+
+종이 쿠폰 대신 카카오톡 스탬프 | 쿠폰 분실 걱정 없이 | 4 | 5
+원두를 구독 박스로 대체 | 월 1회 집 앞 배송 | 5 | 4
+오후 3시 한가한 홀을 스터디룸으로 전용 | 시간제 대관 | 4 | 4</pre>
+  <div class="grid g2">
+    <div class="card"><b>✅ 이렇게 쓰면 잘 분류돼요</b><p style="margin:6px 0 0;font-size:15.5px">제목에 <b>렌즈 단어</b>(대체·결합·응용·확대·전용·축소·제거·역전…)를 넣으면 자동으로 해당 칸에 들어갑니다.</p></div>
+    <div class="card"><b>🎯 점수는 대충이라도 OK</b><p style="margin:6px 0 0;font-size:15.5px">세로=<b>효과</b>(매출·단골에 얼마나 도움?), 가로=<b>실현성</b>(내가 이번 달에 할 수 있나?). 1~5점. 안 쓰면 기본 3점.</p></div>
+  </div>
+  <div class="step" style="margin-top:24px"><div class="n">TIP</div><div><p><b>막히면 칸의 ‘유도 질문’을 읽으세요.</b> 빈 칸에는 “💡 빈 칸 — 다른 시장·사용자·상황에서 쓰면?” 같은 힌트가 자동으로 뜹니다. 7칸을 질문 삼아 돌기만 해도 14개는 금방 나옵니다.</p></div></div>
+</section>
+
+<!-- 4. STEP 2 -->
+<section id="s2">
+  <p class="chap">STEP 2 · 자동 배치와 보정</p>
+  <h2>자동 분류는 ‘초안’, 최종 판단은 사장님</h2>
+  <p class="lead">▶ 버튼을 누르면 보드가 순식간에 채워집니다. 그런데 모모커피 사장님의 보드를 보니 이상한 점이 있었어요.</p>
+  <figure class="shot">
+    <div class="chrome"><i></i><i></i><i></i></div>
+    <img src="img/03-placed.png" alt="자동 배치 직후 보드 — 응용 칸에 4개가 몰리고 전용 칸은 비어 있음">
+    <figcaption><b>자동 배치 직후.</b> ‘스터디룸으로 <u>전용</u>’, ‘커피박을 방향제로 <u>전용</u>’ 카드가 <b>응용</b> 칸에 들어갔고, <b>전용 칸은 0개</b>(점선 + 노란 표시). 맨 위 <b>미분류 인박스</b>엔 ‘칵테일 바로 역전’ 1개.</figcaption>
+  </figure>
+  <div class="story"><b>사장님의 한마디</b> “오, 기계가 완벽하진 않네. 근데 어디가 비었는지 한눈에 보이니까 오히려 좋다.” — 자동 분류의 진짜 가치는 <b>정답</b>이 아니라 <b>빈 칸을 보여주는 것</b>입니다.</div>
+  <h3>보정 방법 ① 드래그해서 옮기기</h3>
+  <img src="img/gif-drag.gif" alt="카드를 드래그해 전용 칸으로 옮기는 과정" class="shot" style="padding:0;cursor:zoom-in;width:100%">
+  <p style="font-size:14.5px;color:var(--sub);margin-top:-8px">▲ 카드를 잡아 ‘전용’ 칸에 놓기. (드래그 장면은 실제 전/후 화면을 이어 만든 설명용 애니메이션입니다.)</p>
+  <h3>보정 방법 ② 카드를 클릭해서 분류 지정</h3>
+  <p>인박스의 카드나 아무 카드를 <b>클릭</b>하면 편집 창이 열립니다. 제목·설명을 고치고, <b>분류</b> 드롭다운으로 칸을 지정하고, 효과·실현성 슬라이더를 움직일 수 있어요.</p>
+  <figure class="shot">
+    <img src="img/05b-edit-dialog.png" alt="아이디어 편집 창 — 제목, 설명, 분류, 세로축·가로축 슬라이더, 삭제·취소·저장 버튼">
+    <figcaption><b>아이디어 편집 창.</b> 분류를 ‘역전·재배열’로 지정하면 인박스에서 해당 칸으로 이동합니다.</figcaption>
+  </figure>
+</section>
+
+<!-- 5. STEP 3 -->
+<section id="s3">
+  <p class="chap">STEP 3 · 커버리지 점검</p>
+  <h2>빈 칸이 없어질 때까지 한 번 더</h2>
+  <p>상단의 <b>현황 카드</b>가 지금 상태를 알려줍니다.</p>
+  <div class="grid g3">
+    <div class="card"><small style="color:var(--sub)">아이디어</small><br><b style="font-size:22px">14개</b></div>
+    <div class="card" style="background:var(--amber-soft)"><small style="color:var(--sub)">최다 칸</small><br><b style="font-size:22px">역전·재배열 (3)</b><p style="margin:4px 0 0;font-size:14px;color:var(--sub)">발상이 몰린 관점 — 관성일 수 있다</p></div>
+    <div class="card" style="background:var(--green-soft)"><small style="color:var(--sub)">커버리지</small><br><b style="font-size:22px">7/7 완주 🎉</b><p style="margin:4px 0 0;font-size:14px;color:var(--sub)">이제 2축 프레임워크로 수렴하라</p></div>
+  </div>
+  <figure class="shot">
+    <div class="chrome"><i></i><i></i><i></i></div>
+    <img src="img/06-full.png" alt="모든 7칸이 채워진 모모커피 SCAMPER 보드">
+    <figcaption><b>7칸 모두 채운 완성 보드.</b> 칸마다 2~3개씩 고르게 분포. 클릭하면 크게 볼 수 있어요.</figcaption>
+  </figure>
+  <div class="grid g2">
+    <div class="card"><b>📊 ‘최다 칸’은 경고등</b><p style="margin:6px 0 0;font-size:15.5px">한 칸에 몰렸다면 습관적으로 그 방향만 생각했다는 뜻. 비어 있거나 얕은 칸의 <b>+ 여기에 추가</b>를 눌러 한 개씩 더 채워보세요.</p></div>
+    <div class="card"><b>🏁 ‘7/7 완주’가 신호탄</b><p style="margin:6px 0 0;font-size:15.5px">모든 렌즈를 한 번씩 돌았다는 의미. 이제 <b>발산을 멈추고 수렴</b>할 차례입니다.</p></div>
+  </div>
+</section>
+
+<!-- 6. STEP 4 -->
+<section id="s4">
+  <p class="chap">STEP 4 · 수렴</p>
+  <h2>14개 중 이번 달에 할 3개 고르기</h2>
+  <p class="lead">드롭다운에서 틀을 <b>‘2축: 효과 × 실현 가능성’</b>으로 바꾸면, 같은 카드가 점수 위치대로 <b>우선순위 지도</b>에 다시 놓입니다. 카드를 새로 쓸 필요 없어요.</p>
+  <img src="img/gif-switch.gif" alt="SCAMPER에서 2축, 아이젠하워, 식스햇으로 틀을 바꾸는 과정" class="shot" style="padding:0;cursor:zoom-in;width:100%">
+  <p style="font-size:14.5px;color:var(--sub);margin-top:-8px">▲ 같은 14개 카드를 4가지 틀로 바꿔 보는 장면 (실제 화면 캡처 프레임)</p>
+
+  <h3>우리 가게 아이디어 지도 (14개 한눈에)</h3>
+  <div class="viz">
+    <svg id="scatter" viewBox="0 0 640 440" role="img" aria-label="효과와 실현 가능성 산점도"></svg>
+    <div class="pts" id="pts"></div>
+  </div>
+  <p style="font-size:14.5px;color:var(--sub);margin-top:-8px">※ 위 점 위치는 모모커피 사장님이 매긴 예시 점수(효과·실현성 1~5)로 그렸습니다. 같은 점수는 살짝 겹치지 않게 흩어 표시했어요.</p>
+
+  <figure class="shot">
+    <div class="chrome"><i></i><i></i><i></i></div>
+    <img src="img/07-impact.png" alt="효과×실현가능성 4분면 — 우선 실행, 도전, 손쉬운 승리, 보류">
+    <figcaption><b>실제 화면의 2축 보드.</b> 4개 구역: ⭐<b>우선 실행</b>(효과·실현 둘 다 4+, 7개) · 🎯도전(고효과·저실현) · 🌱손쉬운 승리 · 🗄보류</figcaption>
+  </figure>
+
+  <h3>고르는 법 — 딱 3원칙</h3>
+  <div class="grid g3">
+    <div class="card"><b>① ⭐ 우선 실행에서 2개</b><p style="margin:6px 0 0;font-size:15px">“여기서부터 구체화한다.” 이번 달 안에 시작할 수 있는 것.</p></div>
+    <div class="card"><b>② 🌱 손쉬운 승리에서 1개</b><p style="margin:6px 0 0;font-size:15px">진열 순서 바꾸기처럼 돈 안 드는 것. 첫 성공 경험용.</p></div>
+    <div class="card"><b>③ 🎯 도전은 ‘쪼개서’</b><p style="margin:6px 0 0;font-size:15px">“실현 장벽을 트레이드온으로 깰 방법을 찾아라.” 칵테일 바 → 금요일 하루만 시범.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <figure class="shot" style="margin:0"><img src="img/08-eisenhower.png" alt="중요도 × 긴급도 보드"><figcaption><b>중요도 × 긴급도.</b> “오늘 할 것”과 “미룰 것”을 가를 때</figcaption></figure>
+    <figure class="shot" style="margin:0"><img src="img/08b-sixhats.png" alt="식스햇 보드"><figcaption><b>식스햇.</b> 낙관·비관·감정 등 6관점으로 점검할 때</figcaption></figure>
+  </div>
+</section>
+
+<!-- 7. BIZ -->
+<section id="biz">
+  <p class="chap">CHAPTER 7 · 우리 가게에 적용</p>
+  <h2>업종이 달라도 질문은 같다</h2>
+  <p class="lead">같은 7칸에 가게만 바꿔 넣어 봤습니다. 업종을 눌러 실제 보드를 확인하세요. (모두 가상 사례)</p>
+  <div class="tabs" id="bizTabs" role="tablist" aria-label="업종 선택"></div>
+  <div id="bizPanels"></div>
+  <noscript><p class="warn">업종별 보드는 JavaScript가 켜져 있어야 보입니다.</p></noscript>
+  <div class="story" style="margin-top:26px"><b>공통 패턴 발견!</b> 업종이 달라도 <b>P(전용)</b>에서는 ‘이미 있는 자원(시든 꽃·남는 나물·빈 의자·빈 교실·남는 육수)’을 돈으로 바꿨습니다. 새 투자 없이 시작할 수 있어서 소상공인에게 가장 현실적인 렌즈예요. 반대로 <b>S(대체)</b>는 대부분 ‘예약·주문·결제 디지털화’로 모였습니다.</div>
+</section>
+
+<!-- 8. CHEATSHEET -->
+<section id="cheat">
+  <p class="chap">CHAPTER 8 · 치트시트</p>
+  <h2>렌즈 × 업종 질문 모음</h2>
+  <p>막힐 때 가게 유형에 맞는 질문을 그대로 복사해서 첫 줄로 쓰세요.</p>
+  <div class="tw"><table>
+    <tr><th></th><th>음식점·카페</th><th>미용·서비스</th><th>소매·판매</th></tr>
+    <tr><td>S 대체</td><td>종이 쿠폰·전화 주문을 무엇으로 바꿀까?</td><td>전화 예약·현금 결제를 무엇으로 바꿀까?</td><td>현장 판매를 어떤 채널로 바꿀까?</td></tr>
+    <tr><td>C 결합</td><td>옆 가게와 묶은 세트는?</td><td>다른 업종 샵과 제휴 패키지는?</td><td>상품 + 체험/키트 결합은?</td></tr>
+    <tr><td>A 응용</td><td>호텔·편의점은 어떻게 팔지?</td><td>피트니스 횟수권을 응용하면?</td><td>편집숍 큐레이션을 응용하면?</td></tr>
+    <tr><td>M 수정·확대</td><td>크기·포장·가격대를 바꾸면?</td><td>시술 시간·메뉴를 줄이면?</td><td>대용량·소포장 상품은?</td></tr>
+    <tr><td>P 전용</td><td>한가한 시간·남는 재료의 다른 쓰임은?</td><td>빈 의자·빈 시간의 다른 쓰임은?</td><td>매장 공간·재고의 다른 쓰임은?</td></tr>
+    <tr><td>E 제거·축소</td><td>안 팔리는 메뉴·서빙 과정을 없애면?</td><td>상담·메뉴 가짓수를 줄이면?</td><td>포장·진열 단계를 없애면?</td></tr>
+    <tr><td>R 역전·재배열</td><td>영업 시간·손님 역할을 뒤집으면?</td><td>시간대·예약 방식을 뒤집으면?</td><td>체험→구매 순서를 뒤집으면?</td></tr>
+  </table></div>
+</section>
+
+<!-- 9. SAVE -->
+<section id="save">
+  <p class="chap">CHAPTER 9 · 저장</p>
+  <h2>⚠️ 새로고침하면 사라집니다</h2>
+  <div class="warn">이 보드는 <b>브라우저 메모리에만</b> 저장됩니다. (화면 하단에도 “데이터는 브라우저 메모리에만 존재 — 보관은 JSON 내보내기”라고 적혀 있어요.) 창을 닫기 전에 꼭 내보내세요.</div>
+  <div class="step"><div class="n">1</div><div><p><b>⇄ JSON 입출력</b> 버튼 클릭</p></div></div>
+  <div class="step"><div class="n">2</div><div><p><b>복사</b> 또는 <b>파일로 저장</b> → 메모장·노션·카톡 ‘나에게 보내기’에 보관</p></div></div>
+  <div class="step"><div class="n">3</div><div><p>다음에 열면 같은 창에 붙여넣고 <b>불러오기</b> → 보드가 그대로 복원</p></div></div>
+  <figure class="shot">
+    <img src="img/10-json.png" alt="JSON 입출력 창 — 복사, 파일로 저장, 닫기, 불러오기 버튼">
+    <figcaption><b>JSON 입출력 창.</b> ChatGPT·Claude 같은 AI에게 “SCAMPER 7칸으로 아이디어 20개 뽑아서 이 JSON 형식으로 써줘”라고 하면 그 결과를 이 창에 붙여넣어 불러올 수도 있습니다.</figcaption>
+  </figure>
+  <pre>{
+  "topic": "동네 카페 매출 올리기",
+  "framework": { "preset": "scamper" },
+  "ideas": [
+    { "title": "종이 쿠폰 대신 카카오톡 스탬프",
+      "desc": "쿠폰 분실 걱정 없이",
+      "cat": "s", "y": 4, "x": 5 }
+  ]
+}
+// cat: s 대체 · c 결합 · a 응용 · m 수정·확대 · p 전용 · e 제거·축소 · r 역전·재배열</pre>
+  <div class="note">🤖 <b>AI와 함께 쓰는 법:</b> 내가 7~8개를 쓰고, AI에게 “내 가게(업종·위치·고객)는 ○○야. 비어 있는 렌즈 칸의 아이디어를 칸마다 2개씩 더 제안해줘”라고 시키면 빈 칸이 금방 채워집니다. 다만 AI가 준 아이디어는 <b>사장님이 점수를 직접 매겨야</b> 진짜 내 것이 됩니다.</div>
+</section>
+
+<!-- 10. PLAN -->
+<section id="plan">
+  <p class="chap">CHAPTER 10 · 실행</p>
+  <h2>오늘부터 7일 플랜</h2>
+  <p>체크하면 진행률이 올라갑니다. (이 브라우저에만 저장돼요)</p>
+  <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  <p id="pct" style="font-size:14px;color:var(--sub);margin:6px 0 0">0 / 7 완료</p>
+  <ul class="chk" id="chk">
+    <li><input type="checkbox" id="c1"><label for="c1"><strong>Day 1 · 주제 한 줄 정하기</strong>“우리 가게 ○○를 올리려면?” 한 문장 + 매트릭스 열기</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2"><strong>Day 2 · 7렌즈 한 바퀴</strong>칸마다 최소 1개, 총 10개 이상 붓기</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3"><strong>Day 3 · 빈 칸·몰린 칸 점검</strong>커버리지 7/7 만들기, 최다 칸에서 멈추기</label></li>
+    <li><input type="checkbox" id="c4"><label for="c4"><strong>Day 4 · 점수 매기기</strong>효과·실현성 1~5점 (직원·단골 1명에게 물어보면 더 정확)</label></li>
+    <li><input type="checkbox" id="c5"><label for="c5"><strong>Day 5 · 2축으로 수렴</strong>⭐우선 실행에서 2개 + 🌱손쉬운 승리에서 1개 선정</label></li>
+    <li><input type="checkbox" id="c6"><label for="c6"><strong>Day 6 · 가장 작은 실험 설계</strong>3개 각각 “이번 주 안에 할 수 있는 가장 작은 버전”으로 쪼개기</label></li>
+    <li><input type="checkbox" id="c7"><label for="c7"><strong>Day 7 · 실행 + JSON 저장</strong>시작하고, 보드를 JSON으로 저장 → 한 달 뒤 다시 열어 비교</label></li>
+  </ul>
+  <div class="story"><b>기억할 한 문장</b> 아이디어는 <b>많이 → 고르게 → 줄여서</b>. 발산할 땐 평가하지 말고, 수렴할 땐 점수만 보세요. 이 순서를 바꾸지 않는 것이 SCAMPER 매트릭스의 전부입니다.</div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    튜토리얼에 쓴 화면은 <a href="https://devlog.moonlang.com/scamper-matrix/" target="_blank" rel="noopener">씽킹 매트릭스</a>(『사고법 도감』 기반)를 직접 조작해 캡처한 것이며, 모든 가게 이름과 점수는 설명용 가상 예시입니다. 드래그 GIF는 실제 전/후 화면을 이어 만든 설명용 애니메이션입니다.
+  </div>
+</footer>
+
+<div id="lb"><img alt=""></div>
+
+<script src="data/businesses.js"></script>
+<script>
+// Idea data (cafe example) — effect (y) x feasibility (x), cat = SCAMPER lens
+const IDEAS = [
+  ["종이 쿠폰 → 카톡 스탬프","s",4,5],["원두 구독 박스","s",5,4],
+  ["원두+드립백 선물세트","c",4,4],["옆 빵집 모닝 세트","c",5,4],
+  ["호텔식 브런치 트레이","a",3,3],["바리스타 원데이 클래스","a",4,3],
+  ["한가한 홀 → 스터디룸","p",4,4],["커피박 방향제 굿즈","p",3,5],
+  ["메뉴 8개로 축소","e",5,5],["셀프 픽업","e",4,4],
+  ["점보 사이즈 신설","m",3,5],
+  ["저녁 칵테일 바","r",5,2],["단골 레시피 투표","r",3,5],["진열장 순서 재배치","r",2,5]
+];
+const LENS = {s:"#c8553d",c:"#2b6cb0",a:"#b7791f",m:"#7b4fa3",p:"#2f7a5b",e:"#5a6470",r:"#d1478a"};
+(function drawScatter(){
+  const svg=document.getElementById("scatter"), pts=document.getElementById("pts");
+  const L=70,T=24,W=540,H=360, ns="http://www.w3.org/2000/svg";
+  const el=(n,a,t)=>{const e=document.createElementNS(ns,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;svg.appendChild(e);return e};
+  const sx=v=>L+(v-0.5)/5*W, sy=v=>T+H-(v-0.5)/5*H;
+  // priority zone (both >= 4)
+  el("rect",{x:sx(3.5),y:T,width:L+W-sx(3.5),height:sy(3.5)-T,fill:"#e3f0ea",rx:10});
+  el("text",{x:L+W-10,y:T+22,"text-anchor":"end","font-size":15,"font-weight":800,fill:"#2f7a5b"},"⭐ 우선 실행");
+  el("text",{x:L+10,y:T+22,"font-size":14,fill:"#999"},"🎯 도전");
+  el("text",{x:L+10,y:T+H-10,"font-size":14,fill:"#999"},"🗄 보류");
+  el("text",{x:L+W-10,y:T+H-10,"text-anchor":"end","font-size":14,fill:"#999"},"🌱 손쉬운 승리");
+  for(let v=1;v<=5;v++){
+    el("line",{x1:sx(v),y1:T,x2:sx(v),y2:T+H,stroke:"#e8e2da"});
+    el("line",{x1:L,y1:sy(v),x2:L+W,y2:sy(v),stroke:"#e8e2da"});
+    el("text",{x:sx(v),y:T+H+22,"text-anchor":"middle","font-size":13,fill:"#6b625a"},v);
+    el("text",{x:L-12,y:sy(v)+5,"text-anchor":"end","font-size":13,fill:"#6b625a"},v);
+  }
+  el("text",{x:L+W/2,y:T+H+46,"text-anchor":"middle","font-size":14,"font-weight":700,fill:"#1f1b18"},"실현 가능성 →");
+  el("text",{x:18,y:T+H/2,"text-anchor":"middle","font-size":14,"font-weight":700,fill:"#1f1b18",transform:`rotate(-90 18 ${T+H/2})`},"효과 →");
+  // spread points sharing the same score so they don't overlap
+  const seen={};
+  IDEAS.forEach(([t,c,y,x],i)=>{
+    const key=x+","+y, k=seen[key]=(seen[key]||0)+1;
+    const off=[[0,0],[16,-10],[-16,10],[16,14]][k-1]||[0,0];
+    el("circle",{cx:sx(x)+off[0],cy:sy(y)+off[1],r:12,fill:LENS[c],opacity:.92,stroke:"#fff","stroke-width":2});
+    el("text",{x:sx(x)+off[0],y:sy(y)+off[1]+4.5,"text-anchor":"middle","font-size":12,"font-weight":800,fill:"#fff"},i+1);
+    const d=document.createElement("div");
+    d.innerHTML=`<b style="background:${LENS[c]}">${i+1}</b><span>${t}</span>`;
+    pts.appendChild(d);
+  });
+})();
+
+// Business examples are rendered from data/businesses.js (add a business there, no HTML edits needed)
+(function renderBusinesses(){
+  const list=window.BUSINESSES||[], tabs=document.getElementById("bizTabs"), panels=document.getElementById("bizPanels");
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  if(!list.length){panels.innerHTML='<p class="warn">업종 데이터를 불러오지 못했습니다.</p>';return}
+  const hash=location.hash.replace("#biz-","");
+  const first=list.some(b=>b.id===hash)?hash:list[0].id;
+  list.forEach(b=>{
+    const t=document.createElement("button");
+    t.setAttribute("role","tab"); t.dataset.t=b.id; t.setAttribute("aria-selected",b.id===first);
+    t.textContent=b.emoji+" "+b.label; tabs.appendChild(t);
+    const p=document.createElement("div");
+    p.className="panel"+(b.id===first?" on":""); p.id="p-"+b.id;
+    const lenses=new Set(b.ideas.map(i=>i[0]));
+    p.innerHTML=`<h3>${esc(b.emoji)} ‘${esc(b.shop)}’ — ${esc(b.goal)}</h3>
+      <figure class="shot"><img src="img/shop-${esc(b.id)}.png" alt="${esc(b.label)} SCAMPER 보드" loading="lazy"><figcaption>${b.ideas.length}개 아이디어 · ${lenses.size}/7 렌즈</figcaption></figure>
+      <div class="pick">${b.picks.map(([l,t])=>`<div><b>${esc(l)}</b> ${esc(t)}</div>`).join("")}</div>`;
+    panels.appendChild(p);
+  });
+  tabs.addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    tabs.querySelectorAll("button").forEach(x=>x.setAttribute("aria-selected",x===b));
+    panels.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="p-"+b.dataset.t));
+    try{history.replaceState(null,"","#biz-"+b.dataset.t)}catch(err){}
+  });
+})();
+
+// Lightbox
+const lb=document.getElementById("lb"), lbi=lb.querySelector("img");
+document.addEventListener("click",e=>{const i=e.target.closest(".shot img, img.shot");if(i){lbi.src=i.src;lb.classList.add("on")}});
+lb.addEventListener("click",()=>lb.classList.remove("on"));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")lb.classList.remove("on")});
+
+// Checklist progress (localStorage is a per-viewer convenience only)
+(function(){
+  const KEY="scamper-plan-v1", boxes=[...document.querySelectorAll("#chk input")];
+  let saved=[]; try{saved=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){}
+  const render=()=>{
+    const n=boxes.filter(b=>b.checked).length;
+    document.getElementById("bar").style.width=(n/boxes.length*100)+"%";
+    document.getElementById("pct").textContent=n+" / "+boxes.length+" 완료"+(n===boxes.length?" 🎉":"");
+    boxes.forEach(b=>b.closest("li").classList.toggle("done",b.checked));
+  };
+  boxes.forEach(b=>{b.checked=saved.includes(b.id);b.addEventListener("change",()=>{
+    try{localStorage.setItem(KEY,JSON.stringify(boxes.filter(x=>x.checked).map(x=>x.id)))}catch(e){}
+    render();
+  })});
+  render();
+})();
+
+// TOC highlight
+const links=[...document.querySelectorAll(".toc a")];
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting) links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id));
+}),{rootMargin:"-40% 0px -55% 0px"});
+document.querySelectorAll("main section").forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
