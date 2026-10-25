@@ -90,6 +90,12 @@ code.i{background:#efe8df;padding:2px 6px;border-radius:6px;font-size:.88em}
 .pts b{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px}
 /* tabs */
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+.groups{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 0}
+.groups button{font:inherit;font-size:15px;font-weight:700;border:1.5px solid var(--line);background:var(--card);padding:10px 18px;border-radius:14px;cursor:pointer;color:var(--ink)}
+.groups button small{font-weight:500;color:var(--sub);margin-left:6px}
+.groups button[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+.groups button[aria-selected=true] small{color:#ffe3da}
+.tabs{margin-top:12px}
 .tabs button{font:inherit;font-size:15px;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:99px;cursor:pointer;color:var(--sub)}
 .tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
 .panel{display:none}.panel.on{display:block;animation:fade .3s}
@@ -297,6 +303,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
   <p class="chap">CHAPTER 7 · 우리 가게에 적용</p>
   <h2>업종이 달라도 질문은 같다</h2>
   <p class="lead">같은 7칸에 가게만 바꿔 넣어 봤습니다. 업종을 눌러 실제 보드를 확인하세요. (모두 가상 사례)</p>
+  <div class="groups" id="bizGroups" role="tablist" aria-label="업종 카테고리"></div>
   <div class="tabs" id="bizTabs" role="tablist" aria-label="업종 선택"></div>
   <div id="bizPanels"></div>
   <noscript><p class="warn">업종별 보드는 JavaScript가 켜져 있어야 보입니다.</p></noscript>
@@ -421,29 +428,55 @@ const LENS = {s:"#c8553d",c:"#2b6cb0",a:"#b7791f",m:"#7b4fa3",p:"#2f7a5b",e:"#5a
 
 // Business examples are rendered from data/businesses.js (add a business there, no HTML edits needed)
 (function renderBusinesses(){
-  const list=window.BUSINESSES||[], tabs=document.getElementById("bizTabs"), panels=document.getElementById("bizPanels");
+  const list=window.BUSINESSES||[], panels=document.getElementById("bizPanels");
+  const tabs=document.getElementById("bizTabs"), groupBar=document.getElementById("bizGroups");
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   if(!list.length){panels.innerHTML='<p class="warn">업종 데이터를 불러오지 못했습니다.</p>';return}
-  const hash=location.hash.replace("#biz-","");
-  const first=list.some(b=>b.id===hash)?hash:list[0].id;
+  // Known groups in declared order; businesses without a known group fall into "기타".
+  const known=(window.BUSINESS_GROUPS||[]).slice();
+  const knownIds=new Set(known.map(g=>g.id));
+  const groupOf=b=>knownIds.has(b.group)?b.group:"etc";
+  const groups=known.concat(list.some(b=>groupOf(b)==="etc")?[{id:"etc",emoji:"📦",label:"기타"}]:[])
+    .filter(g=>list.some(b=>groupOf(b)===g.id));
+
   list.forEach(b=>{
-    const t=document.createElement("button");
-    t.setAttribute("role","tab"); t.dataset.t=b.id; t.setAttribute("aria-selected",b.id===first);
-    t.textContent=b.emoji+" "+b.label; tabs.appendChild(t);
     const p=document.createElement("div");
-    p.className="panel"+(b.id===first?" on":""); p.id="p-"+b.id;
+    p.className="panel"; p.id="p-"+b.id;
     const lenses=new Set(b.ideas.map(i=>i[0]));
     p.innerHTML=`<h3>${esc(b.emoji)} ‘${esc(b.shop)}’ — ${esc(b.goal)}</h3>
       <figure class="shot"><img src="img/shop-${esc(b.id)}.png" alt="${esc(b.label)} SCAMPER 보드" loading="lazy"><figcaption>${b.ideas.length}개 아이디어 · ${lenses.size}/7 렌즈</figcaption></figure>
       <div class="pick">${b.picks.map(([l,t])=>`<div><b>${esc(l)}</b> ${esc(t)}</div>`).join("")}</div>`;
     panels.appendChild(p);
   });
-  tabs.addEventListener("click",e=>{
-    const b=e.target.closest("button"); if(!b) return;
-    tabs.querySelectorAll("button").forEach(x=>x.setAttribute("aria-selected",x===b));
-    panels.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="p-"+b.dataset.t));
-    try{history.replaceState(null,"","#biz-"+b.dataset.t)}catch(err){}
+
+  function showBusiness(id){
+    const b=list.find(x=>x.id===id)||list[0], g=groupOf(b);
+    groupBar.querySelectorAll("button").forEach(x=>x.setAttribute("aria-selected",x.dataset.g===g));
+    tabs.innerHTML="";
+    list.filter(x=>groupOf(x)===g).forEach(x=>{
+      const t=document.createElement("button");
+      t.setAttribute("role","tab"); t.dataset.t=x.id; t.setAttribute("aria-selected",x.id===b.id);
+      t.textContent=x.emoji+" "+x.label; tabs.appendChild(t);
+    });
+    panels.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id==="p-"+b.id));
+  }
+  groups.forEach(g=>{
+    const btn=document.createElement("button");
+    btn.setAttribute("role","tab"); btn.dataset.g=g.id;
+    btn.innerHTML=`${esc(g.emoji)} ${esc(g.label)}<small>${list.filter(b=>groupOf(b)===g.id).length}</small>`;
+    groupBar.appendChild(btn);
   });
+  groupBar.addEventListener("click",e=>{
+    const btn=e.target.closest("button"); if(!btn) return;
+    const first=list.find(b=>groupOf(b)===btn.dataset.g); if(first) select(first.id);
+  });
+  tabs.addEventListener("click",e=>{const btn=e.target.closest("button"); if(btn) select(btn.dataset.t)});
+  function select(id){
+    showBusiness(id);
+    try{history.replaceState(null,"","#biz-"+id)}catch(err){}
+  }
+  const hash=location.hash.replace("#biz-","");
+  showBusiness(list.some(b=>b.id===hash)?hash:list[0].id);
 })();
 
 // Lightbox

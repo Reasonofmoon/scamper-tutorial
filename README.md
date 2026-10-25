@@ -25,7 +25,7 @@ python3 -m http.server 8000   # 이 폴더에서 실행 → http://localhost:800
 
    ```js
    {
-     id: "bakery", emoji: "🥐", label: "빵집", shop: "구움과자방", goal: "오후 매출 올리기",
+     id: "bakery", group: "food", emoji: "🥐", label: "빵집", shop: "구움과자방", goal: "오후 매출 올리기",
      ideas: [
        // [렌즈, 제목, 설명, 효과(1~5), 실현성(1~5)]
        ["s", "현장 판매 대신 예약 픽업", "폐기 줄이기", 4, 5],
@@ -39,6 +39,7 @@ python3 -m http.server 8000   # 이 폴더에서 실행 → http://localhost:800
    ```
 
    - `id`는 영문 소문자(파일명으로 쓰임), 같은 렌즈를 7개 모두 채우면 사이트에서 "7/7 완주"가 뜹니다.
+   - `group`은 카테고리 칩(`window.BUSINESS_GROUPS`의 id: `food` 먹거리 · `care` 뷰티·건강 · `shop` 소매·생활 · `edu` 교육·돌봄)입니다. 생략하거나 없는 id를 쓰면 자동으로 "기타" 칩에 모입니다. 새 카테고리는 `BUSINESS_GROUPS`에 `{ id, emoji, label }`을 추가하면 됩니다.
 2. 보드 이미지와 JSON을 생성합니다. (ego-browser 필요)
 
    ```bash

@@ -1,10 +1,20 @@
 // Business examples shown in chapter 7. To add one, append an entry and run tools/capture-shops.mjs (see README).
+// group: id from BUSINESS_GROUPS below (omit it and the business shows up under "기타").
 // idea tuple: [lens, title, desc, effect(1-5), feasibility(1-5)]
 // lens keys: s=대체 c=결합 a=응용 m=수정·확대 p=전용 e=제거·축소 r=역전·재배열
 // pick tuple: [lens, text] — the 3 takeaways shown under the board
+
+// Category chips shown above the business tabs, in this order.
+window.BUSINESS_GROUPS = [
+  { id: "food", emoji: "🍽️", label: "먹거리" },
+  { id: "care", emoji: "💆", label: "뷰티·건강" },
+  { id: "shop", emoji: "🛍️", label: "소매·생활" },
+  { id: "edu", emoji: "🎓", label: "교육·돌봄" }
+];
+
 window.BUSINESSES = [
   {
-    id: "flower", emoji: "🌷", label: "꽃집", shop: "보라꽃방", goal: "평일 매출 올리기",
+    id: "flower", group: "shop", emoji: "🌷", label: "꽃집", shop: "보라꽃방", goal: "평일 매출 올리기",
     ideas: [
       ["s", "생화 대신 프리저브드 플라워 상품", "시들지 않는 선물 · 재고 폐기 감소", 4, 3],
       ["s", "현장 결제 대신 카톡 주문·퀵 배송", "전화 주문 놓치지 않기", 4, 5],
@@ -23,7 +33,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "banchan", emoji: "🍱", label: "반찬가게", shop: "엄마손", goal: "저녁 장사 늘리기",
+    id: "banchan", group: "food", emoji: "🍱", label: "반찬가게", shop: "엄마손", goal: "저녁 장사 늘리기",
     ideas: [
       ["s", "현금 판매 대신 주 1회 정기 반찬 구독", "직장인 가구 타깃", 5, 4],
       ["s", "수제 양념 대신 밀키트용 소스 판매", "재료 손질 시간 절약", 3, 4],
@@ -42,7 +52,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "salon", emoji: "💇", label: "미용실", shop: "헤어온", goal: "예약 빈 시간 채우기",
+    id: "salon", group: "care", emoji: "💇", label: "미용실", shop: "헤어온", goal: "예약 빈 시간 채우기",
     ideas: [
       ["s", "전화 예약 대신 네이버 예약 도입", "노쇼 줄이기", 5, 5],
       ["s", "정액제 쿠폰 대신 월 구독 관리권", "두피케어 월 1회", 4, 4],
@@ -60,7 +70,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "stationery", emoji: "✏️", label: "문구점", shop: "아이디어문구", goal: "방학 매출 지키기",
+    id: "stationery", group: "shop", emoji: "✏️", label: "문구점", shop: "아이디어문구", goal: "방학 매출 지키기",
     ideas: [
       ["s", "현금 판매 대신 스마트스토어 병행", "재고 전국 판매", 4, 5],
       ["c", "문구 + 만들기 키트 결합", "주말 가족 고객", 5, 4],
@@ -77,7 +87,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "academy", emoji: "📚", label: "학원", shop: "새벽영어학원", goal: "학부모 만족도와 재등록률 올리기",
+    id: "academy", group: "edu", emoji: "📚", label: "학원", shop: "새벽영어학원", goal: "학부모 만족도와 재등록률 올리기",
     ideas: [
       ["s", "종이 공지·전화 상담 대신 알림톡 자동 안내", "출결·숙제·시험 일정 자동 발송", 4, 5],
       ["s", "월 일괄 수강료 대신 학기제 + 분납 선택", "목돈 부담 낮추기", 3, 4],
@@ -96,7 +106,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "nail", emoji: "💅", label: "네일샵", shop: "네일모아", goal: "노쇼 줄이고 단골 늘리기",
+    id: "nail", group: "care", emoji: "💅", label: "네일샵", shop: "네일모아", goal: "노쇼 줄이고 단골 늘리기",
     ideas: [
       ["s", "전화 예약 대신 카톡 채널 예약 + 예약금", "노쇼 방지 + 자동 확정", 5, 5],
       ["s", "현장 샘플 대신 인스타 포트폴리오 예약", "디자인 고르는 시간 단축", 4, 5],
@@ -115,7 +125,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "restaurant", emoji: "🍜", label: "식당", shop: "한끼식당", goal: "점심 이후 매출과 포장 늘리기",
+    id: "restaurant", group: "food", emoji: "🍜", label: "식당", shop: "한끼식당", goal: "점심 이후 매출과 포장 늘리기",
     ideas: [
       ["s", "종이 메뉴판 대신 QR 주문", "주문·결제 시간 절약", 4, 5],
       ["s", "전화 포장 주문 대신 네이버 주문", "바쁜 시간 전화 부담 ↓", 4, 5],
@@ -134,7 +144,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "laundry", emoji: "🧺", label: "세탁소", shop: "깨끗한세탁소", goal: "단골 고정하고 성수기 편차 줄이기",
+    id: "laundry", group: "shop", emoji: "🧺", label: "세탁소", shop: "깨끗한세탁소", goal: "단골 고정하고 성수기 편차 줄이기",
     ideas: [
       ["s", "현장 접수 대신 카톡 수거·배송", "바쁜 직장인 타깃", 5, 3],
       ["s", "종이 영수증 대신 알림톡 완료 안내", "찾아가기 알림", 2, 5],
@@ -153,7 +163,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "bakery", emoji: "🥐", label: "빵집", shop: "구움과자방", goal: "오후 매출 올리고 폐기 줄이기",
+    id: "bakery", group: "food", emoji: "🥐", label: "빵집", shop: "구움과자방", goal: "오후 매출 올리고 폐기 줄이기",
     ideas: [
       ["s", "현장 판매 대신 앱·카톡 예약 픽업", "구워 두는 양 예측, 폐기 ↓", 5, 5],
       ["s", "일회용 포장 대신 반납형 용기 보증금", "친환경 + 재방문 유도", 3, 3],
@@ -172,7 +182,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "gym", emoji: "🏋️", label: "헬스장", shop: "오늘핏", goal: "중도 이탈 줄이고 비수기 회원 늘리기",
+    id: "gym", group: "care", emoji: "🏋️", label: "헬스장", shop: "오늘핏", goal: "중도 이탈 줄이고 비수기 회원 늘리기",
     ideas: [
       ["s", "종이 회원권 대신 앱 출석·알림 관리", "미출석자 자동 독려", 4, 5],
       ["s", "연간 일시불 대신 월 구독 + 일시정지", "가입 장벽 낮추기", 5, 4],
@@ -191,7 +201,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "petgroom", emoji: "🐶", label: "반려동물 미용실", shop: "멍냥살롱", goal: "예약 빈 시간 채우고 단골 만들기",
+    id: "petgroom", group: "edu", emoji: "🐶", label: "반려동물 미용실", shop: "멍냥살롱", goal: "예약 빈 시간 채우고 단골 만들기",
     ideas: [
       ["s", "전화 예약 대신 카톡 채널 예약 + 사전 질문지", "견종·성향 미리 파악", 5, 5],
       ["s", "현장 결제 대신 미용 전후 사진 알림톡 발송", "보호자 안심 + 후기 유도", 4, 5],
@@ -210,7 +220,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "pharmacy", emoji: "💊", label: "약국", shop: "온누리약국", goal: "단골 건강 상담으로 재방문 늘리기",
+    id: "pharmacy", group: "care", emoji: "💊", label: "약국", shop: "온누리약국", goal: "단골 건강 상담으로 재방문 늘리기",
     ideas: [
       ["s", "종이 복약 안내문 대신 알림톡 복약 알림", "복용 시간·주의사항 자동 안내", 4, 5],
       ["s", "방문 상담 대신 카톡 채널 건강 상담 예약", "대기 줄이기 (법령 범위 내 상담)", 3, 4],
@@ -229,7 +239,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "optical", emoji: "👓", label: "안경점", shop: "맑은안경", goal: "교체 주기 놓치지 않고 재방문 늘리기",
+    id: "optical", group: "care", emoji: "👓", label: "안경점", shop: "맑은안경", goal: "교체 주기 놓치지 않고 재방문 늘리기",
     ideas: [
       ["s", "종이 고객카드 대신 카톡 시력·렌즈 교체 알림", "6개월·1년 주기 자동 안내", 4, 5],
       ["s", "현장 계산 대신 온라인 사전 상담 + 방문 검안", "대기 시간 단축", 3, 4],
@@ -248,7 +258,7 @@ window.BUSINESSES = [
     ]
   },
   {
-    id: "cafe2", emoji: "☕", label: "카페 2호점", shop: "모모커피 2호점", goal: "오피스 상권 테이크아웃 매장 성공시키기",
+    id: "cafe2", group: "food", emoji: "☕", label: "카페 2호점", shop: "모모커피 2호점", goal: "오피스 상권 테이크아웃 매장 성공시키기",
     ideas: [
       ["s", "좌석 중심 대신 사전 주문 픽업존", "점심·출근 피크 대응", 5, 5],
       ["s", "현금·카드 대신 1호점 스탬프 앱 공동 사용", "단골 연결", 4, 4],
