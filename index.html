@@ -126,6 +126,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
 @media(max-width:760px){
   #lb{overflow:auto;align-items:flex-start;justify-content:flex-start;padding:60px 0 20px;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom}
   #lb img{max-height:none;max-width:none;width:max(100%,980px);border-radius:0}
+  #lb img.m{width:100%}
   #lb .x{display:block}
   .shot figcaption::after{content:" · 탭하면 확대";color:var(--accent);font-weight:700}
   .viz{overflow-x:auto;padding:12px}
@@ -242,7 +243,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
   <p class="lead">▶ 버튼을 누르면 보드가 순식간에 채워집니다. 그런데 모모커피 사장님의 보드를 보니 이상한 점이 있었어요.</p>
   <figure class="shot">
     <div class="chrome"><i></i><i></i><i></i></div>
-    <img src="img/03-placed.png" alt="자동 배치 직후 보드 — 응용 칸에 4개가 몰리고 전용 칸은 비어 있음">
+    <picture><source media="(max-width:760px)" srcset="img/m/03-placed.png"><img src="img/03-placed.png" alt="자동 배치 직후 보드 — 응용 칸에 4개가 몰리고 전용 칸은 비어 있음"></picture>
     <figcaption><b>자동 배치 직후.</b> ‘스터디룸으로 <u>전용</u>’, ‘커피박을 방향제로 <u>전용</u>’ 카드가 <b>응용</b> 칸에 들어갔고, <b>전용 칸은 0개</b>(점선 + 노란 표시). 맨 위 <b>미분류 인박스</b>엔 ‘칵테일 바로 역전’ 1개.</figcaption>
   </figure>
   <div class="story"><b>사장님의 한마디</b> “오, 기계가 완벽하진 않네. 근데 어디가 비었는지 한눈에 보이니까 오히려 좋다.” — 자동 분류의 진짜 가치는 <b>정답</b>이 아니라 <b>빈 칸을 보여주는 것</b>입니다.</div>
@@ -252,7 +253,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
   <h3>보정 방법 ② 카드를 클릭해서 분류 지정</h3>
   <p>인박스의 카드나 아무 카드를 <b>클릭</b>하면 편집 창이 열립니다. 제목·설명을 고치고, <b>분류</b> 드롭다운으로 칸을 지정하고, 효과·실현성 슬라이더를 움직일 수 있어요.</p>
   <figure class="shot">
-    <img src="img/05b-edit-dialog.png" alt="아이디어 편집 창 — 제목, 설명, 분류, 세로축·가로축 슬라이더, 삭제·취소·저장 버튼">
+    <picture><source media="(max-width:760px)" srcset="img/m/05b-edit-dialog.png"><img src="img/05b-edit-dialog.png" alt="아이디어 편집 창 — 제목, 설명, 분류, 세로축·가로축 슬라이더, 삭제·취소·저장 버튼"></picture>
     <figcaption><b>아이디어 편집 창.</b> 분류를 ‘역전·재배열’로 지정하면 인박스에서 해당 칸으로 이동합니다.</figcaption>
   </figure>
 </section>
@@ -269,7 +270,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
   </div>
   <figure class="shot">
     <div class="chrome"><i></i><i></i><i></i></div>
-    <img src="img/06-full.png" alt="모든 7칸이 채워진 모모커피 SCAMPER 보드">
+    <picture><source media="(max-width:760px)" srcset="img/m/06-full.png"><img src="img/06-full.png" alt="모든 7칸이 채워진 모모커피 SCAMPER 보드"></picture>
     <figcaption><b>7칸 모두 채운 완성 보드.</b> 칸마다 2~3개씩 고르게 분포. 클릭하면 크게 볼 수 있어요.</figcaption>
   </figure>
   <div class="grid g2">
@@ -295,7 +296,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
 
   <figure class="shot">
     <div class="chrome"><i></i><i></i><i></i></div>
-    <img src="img/07-impact.png" alt="효과×실현가능성 4분면 — 우선 실행, 도전, 손쉬운 승리, 보류">
+    <picture><source media="(max-width:760px)" srcset="img/m/07-impact.png"><img src="img/07-impact.png" alt="효과×실현가능성 4분면 — 우선 실행, 도전, 손쉬운 승리, 보류"></picture>
     <figcaption><b>실제 화면의 2축 보드.</b> 4개 구역: ⭐<b>우선 실행</b>(효과·실현 둘 다 4+, 7개) · 🎯도전(고효과·저실현) · 🌱손쉬운 승리 · 🗄보류</figcaption>
   </figure>
 
@@ -306,8 +307,8 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
     <div class="card"><b>③ 🎯 도전은 ‘쪼개서’</b><p style="margin:6px 0 0;font-size:15px">“실현 장벽을 트레이드온으로 깰 방법을 찾아라.” 칵테일 바 → 금요일 하루만 시범.</p></div>
   </div>
   <div class="grid g2" style="margin-top:14px">
-    <figure class="shot" style="margin:0"><img src="img/08-eisenhower.png" alt="중요도 × 긴급도 보드"><figcaption><b>중요도 × 긴급도.</b> “오늘 할 것”과 “미룰 것”을 가를 때</figcaption></figure>
-    <figure class="shot" style="margin:0"><img src="img/08b-sixhats.png" alt="식스햇 보드"><figcaption><b>식스햇.</b> 낙관·비관·감정 등 6관점으로 점검할 때</figcaption></figure>
+    <figure class="shot" style="margin:0"><picture><source media="(max-width:760px)" srcset="img/m/08-eisenhower.png"><img src="img/08-eisenhower.png" alt="중요도 × 긴급도 보드"></picture><figcaption><b>중요도 × 긴급도.</b> “오늘 할 것”과 “미룰 것”을 가를 때</figcaption></figure>
+    <figure class="shot" style="margin:0"><picture><source media="(max-width:760px)" srcset="img/m/08b-sixhats.png"><img src="img/08b-sixhats.png" alt="식스햇 보드"></picture><figcaption><b>식스햇.</b> 낙관·비관·감정 등 6관점으로 점검할 때</figcaption></figure>
   </div>
 </section>
 
@@ -349,7 +350,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
   <div class="step"><div class="n">2</div><div><p><b>복사</b> 또는 <b>파일로 저장</b> → 메모장·노션·카톡 ‘나에게 보내기’에 보관</p></div></div>
   <div class="step"><div class="n">3</div><div><p>다음에 열면 같은 창에 붙여넣고 <b>불러오기</b> → 보드가 그대로 복원</p></div></div>
   <figure class="shot">
-    <img src="img/10-json.png" alt="JSON 입출력 창 — 복사, 파일로 저장, 닫기, 불러오기 버튼">
+    <picture><source media="(max-width:760px)" srcset="img/m/10-json.png"><img src="img/10-json.png" alt="JSON 입출력 창 — 복사, 파일로 저장, 닫기, 불러오기 버튼"></picture>
     <figcaption><b>JSON 입출력 창.</b> ChatGPT·Claude 같은 AI에게 “SCAMPER 7칸으로 아이디어 20개 뽑아서 이 JSON 형식으로 써줘”라고 하면 그 결과를 이 창에 붙여넣어 불러올 수도 있습니다.</figcaption>
   </figure>
   <pre>{
@@ -460,7 +461,7 @@ const LENS = {s:"#c8553d",c:"#2b6cb0",a:"#b7791f",m:"#7b4fa3",p:"#2f7a5b",e:"#5a
     p.className="panel"; p.id="p-"+b.id;
     const lenses=new Set(b.ideas.map(i=>i[0]));
     p.innerHTML=`<h3>${esc(b.emoji)} ‘${esc(b.shop)}’ — ${esc(b.goal)}</h3>
-      <figure class="shot"><img src="img/shop-${esc(b.id)}.png" alt="${esc(b.label)} SCAMPER 보드" loading="lazy"><figcaption>${b.ideas.length}개 아이디어 · ${lenses.size}/7 렌즈</figcaption></figure>
+      <figure class="shot"><picture><source media="(max-width:760px)" srcset="img/m/shop-${esc(b.id)}.png"><img src="img/shop-${esc(b.id)}.png" alt="${esc(b.label)} SCAMPER 보드" loading="lazy"></picture><figcaption>${b.ideas.length}개 아이디어 · ${lenses.size}/7 렌즈</figcaption></figure>
       <div class="pick">${b.picks.map(([l,t])=>`<div><b>${esc(l)}</b> ${esc(t)}</div>`).join("")}</div>`;
     panels.appendChild(p);
   });
@@ -497,7 +498,7 @@ const LENS = {s:"#c8553d",c:"#2b6cb0",a:"#b7791f",m:"#7b4fa3",p:"#2f7a5b",e:"#5a
 
 // Lightbox
 const lb=document.getElementById("lb"), lbi=lb.querySelector("img");
-document.addEventListener("click",e=>{const i=e.target.closest(".shot img, img.shot");if(i){lbi.src=i.src;lb.scrollTo(0,0);lb.classList.add("on")}});
+document.addEventListener("click",e=>{const i=e.target.closest(".shot img, img.shot");if(i){lbi.src=i.currentSrc||i.src;lbi.classList.toggle("m",/\/img\/m\//.test(lbi.src));lb.scrollTo(0,0);lb.classList.add("on")}});
 const isPhone=()=>matchMedia("(max-width:760px)").matches;
 lb.addEventListener("click",e=>{ if(isPhone()&&e.target===lbi) return; lb.classList.remove("on"); }); // phones: tapping the image must not close it (pan/pinch)
 lb.querySelector(".x").addEventListener("click",e=>{e.stopPropagation();lb.classList.remove("on")});

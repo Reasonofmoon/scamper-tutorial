@@ -10,7 +10,9 @@ index.html              튜토리얼 본문 (업종 탭은 data/businesses.js로
 data/businesses.js      ★ 업종 예시 데이터 — 새 업종은 여기에만 추가
 data/json/<id>.json     씽킹 매트릭스 「JSON 입출력」에 바로 불러올 수 있는 파일 (자동 생성)
 img/                    캡처 PNG / GIF (shop-<id>.png는 자동 생성)
-tools/capture-shops.mjs 업종 보드 캡처 + JSON 생성 스크립트
+img/m/                  휴대폰 폭(390px) 전용 캡처 — 폰에서는 자동으로 이 이미지를 사용 (자동 생성)
+tools/capture-shops.mjs 업종 보드 캡처(데스크톱) + JSON 생성 스크립트
+tools/capture-mobile.mjs 모바일 전용 이미지 생성 스크립트
 ```
 
 ## 로컬 미리보기
@@ -48,6 +50,13 @@ python3 -m http.server 8000   # 이 폴더에서 실행 → http://localhost:800
    ```
 
    ego-browser가 없으면 `data/json/<id>.json`을 만들어 사이트의 ⇄ JSON 입출력에 붙여넣고 직접 스크린샷을 `img/shop-<id>.png`로 저장해도 됩니다.
+   모바일 이미지도 만들어야 폰에서 읽기 좋습니다. `tools/capture-mobile.mjs`의 `ROOT`(절대경로)를 고치고, 새 항목만이면 `ONLY = ["bakery"]`, 튜토리얼 장면은 다시 찍을 필요 없으면 `SCENES = false`로 둔 뒤 실행합니다.
+
+   ```bash
+   ego-browser nodejs < tools/capture-mobile.mjs   # → img/m/shop-<id>.png
+   ```
+
+   (`img/m/shop-<id>.png`가 없으면 폰에서는 이미지가 비어 보이므로 꼭 함께 만들어주세요.)
 3. 브라우저를 새로고침하면 탭이 자동으로 생깁니다. (`index.html#biz-bakery` 로 특정 업종 링크 가능)
 
 > 이름·점수는 설명용 가상 예시임을 유지해주세요. 실제 가게의 이름·성과를 쓰면 안 됩니다.
