@@ -18,7 +18,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
 img{max-width:100%;display:block}
 a{color:var(--accent)}
 .wrap{max-width:980px;margin:0 auto;padding:0 20px}
@@ -122,6 +122,19 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
 /* lightbox */
 #lb{position:fixed;inset:0;background:rgba(20,12,8,.9);display:none;align-items:center;justify-content:center;z-index:99;padding:20px;cursor:zoom-out}
 #lb.on{display:flex}#lb img{max-height:94vh;border-radius:10px}
+#lb .x{display:none;position:fixed;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#1f1b18;font-size:22px;font-weight:800;cursor:pointer;z-index:100}
+@media(max-width:760px){
+  #lb{overflow:auto;align-items:flex-start;justify-content:flex-start;padding:60px 0 20px;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom}
+  #lb img{max-height:none;max-width:none;width:max(100%,980px);border-radius:0}
+  #lb .x{display:block}
+  .shot figcaption::after{content:" · 탭하면 확대";color:var(--accent);font-weight:700}
+  .viz{overflow-x:auto;padding:12px}
+  .viz svg{min-width:560px}
+  .viz::before{content:"← 옆으로 밀어서 보기";display:block;position:sticky;left:0;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:6px}
+  .tw::before{content:"← 옆으로 밀어서 보기";display:block;padding:8px 14px;font-size:13px;color:var(--accent);font-weight:700;border-bottom:1px solid var(--line)}
+  .toc a{padding:10px 14px}
+  .hero{padding:52px 0 44px}
+}
 </style>
 </head>
 <body>
@@ -379,7 +392,7 @@ footer{padding:56px 0 80px;color:var(--sub);font-size:14px}
   </div>
 </footer>
 
-<div id="lb"><img alt=""></div>
+<div id="lb"><button class="x" aria-label="닫기">✕</button><img alt=""></div>
 
 <script src="data/businesses.js"></script>
 <script>
@@ -424,6 +437,9 @@ const LENS = {s:"#c8553d",c:"#2b6cb0",a:"#b7791f",m:"#7b4fa3",p:"#2f7a5b",e:"#5a
     d.innerHTML=`<b style="background:${LENS[c]}">${i+1}</b><span>${t}</span>`;
     pts.appendChild(d);
   });
+  // On phones start scrolled to the right so the ⭐ priority zone is visible first
+  const box=svg.closest(".viz");
+  if(matchMedia("(max-width:760px)").matches) box.scrollLeft=box.scrollWidth;
 })();
 
 // Business examples are rendered from data/businesses.js (add a business there, no HTML edits needed)
@@ -481,8 +497,10 @@ const LENS = {s:"#c8553d",c:"#2b6cb0",a:"#b7791f",m:"#7b4fa3",p:"#2f7a5b",e:"#5a
 
 // Lightbox
 const lb=document.getElementById("lb"), lbi=lb.querySelector("img");
-document.addEventListener("click",e=>{const i=e.target.closest(".shot img, img.shot");if(i){lbi.src=i.src;lb.classList.add("on")}});
-lb.addEventListener("click",()=>lb.classList.remove("on"));
+document.addEventListener("click",e=>{const i=e.target.closest(".shot img, img.shot");if(i){lbi.src=i.src;lb.scrollTo(0,0);lb.classList.add("on")}});
+const isPhone=()=>matchMedia("(max-width:760px)").matches;
+lb.addEventListener("click",e=>{ if(isPhone()&&e.target===lbi) return; lb.classList.remove("on"); }); // phones: tapping the image must not close it (pan/pinch)
+lb.querySelector(".x").addEventListener("click",e=>{e.stopPropagation();lb.classList.remove("on")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")lb.classList.remove("on")});
 
 // Checklist progress (localStorage is a per-viewer convenience only)
