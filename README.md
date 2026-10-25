@@ -9,10 +9,14 @@
 index.html              튜토리얼 본문 (업종 탭은 data/businesses.js로 자동 생성)
 data/businesses.js      ★ 업종 예시 데이터 — 새 업종은 여기에만 추가
 data/json/<id>.json     씽킹 매트릭스 「JSON 입출력」에 바로 불러올 수 있는 파일 (자동 생성)
+b/                      업종별 페이지 (b/<id>/ 와 허브 b/) — tools/build-pages.mjs가 자동 생성, 직접 수정 금지
+assets/page.css         업종별 페이지 공통 스타일
+sitemap.xml             사이트맵 (자동 생성)
 img/                    캡처 PNG / GIF (shop-<id>.png는 자동 생성)
 img/m/                  휴대폰 폭(390px) 전용 캡처 — 폰에서는 자동으로 이 이미지를 사용 (자동 생성)
 tools/capture-shops.mjs 업종 보드 캡처(데스크톱) + JSON 생성 스크립트
 tools/capture-mobile.mjs 모바일 전용 이미지 생성 스크립트
+tools/build-pages.mjs   업종별 페이지·허브·sitemap 생성 (node만 있으면 됨)
 ```
 
 ## 로컬 미리보기
@@ -57,7 +61,14 @@ python3 -m http.server 8000   # 이 폴더에서 실행 → http://localhost:800
    ```
 
    (`img/m/shop-<id>.png`가 없으면 폰에서는 이미지가 비어 보이므로 꼭 함께 만들어주세요.)
-3. 브라우저를 새로고침하면 탭이 자동으로 생깁니다. (`index.html#biz-bakery` 로 특정 업종 링크 가능)
+3. 업종별 페이지를 만듭니다. (Node 18+ 필요, 의존성 없음)
+
+   ```bash
+   node tools/build-pages.mjs   # → b/<id>/index.html, b/index.html, sitemap.xml
+   ```
+
+   생성 파일도 커밋해야 Pages에 올라갑니다. 업종 데이터를 고칠 때마다 다시 실행하세요.
+4. 브라우저를 새로고침하면 탭이 자동으로 생깁니다. (`index.html#biz-bakery` 또는 업종 전용 주소 `b/bakery/` 로 링크 가능)
 
 > 이름·점수는 설명용 가상 예시임을 유지해주세요. 실제 가게의 이름·성과를 쓰면 안 됩니다.
 
