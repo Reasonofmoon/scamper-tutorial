@@ -57,6 +57,16 @@ h2 small{font-size:.6em;color:var(--sub);font-weight:600}
 .btn,.actions button{font:inherit;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;border:0;border-radius:12px;padding:11px 18px;background:var(--ink);color:#fff;display:inline-block}
 .btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .actions button{background:var(--accent)}
+.doit{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.doit li{display:flex;gap:14px;align-items:flex-start;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.doit .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;display:grid;place-items:center}
+.doit p{margin:4px 0 0;font-size:15.5px}
+.doit .actions{margin:8px 0 0}
+.actions button.go{animation:nudge 1.6s infinite;font-size:16px;padding:13px 20px}
+.actions .btn,.actions button{min-height:46px}
+@keyframes nudge{50%{transform:translateY(-3px)}}
+:focus-visible{outline:3px solid #2b6cb0;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 /* chips & hub */
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chips a{border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:99px;text-decoration:none;color:var(--ink);font-size:15px}
@@ -77,4 +87,6 @@ h2 small{font-size:.6em;color:var(--sub);font-weight:600}
   .idea{flex-direction:column;gap:4px}
   .idea em{padding-top:0}
   .try{padding:4px 16px 20px}
+  .doit li{padding:12px}
+  .actions .btn,.actions button{width:100%;text-align:center}
 }

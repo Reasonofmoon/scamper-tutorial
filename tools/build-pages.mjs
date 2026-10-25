@@ -131,18 +131,14 @@ function businessPage(b, ctx) {
   </section>
 
   <section class="try">
-    <h2>내 가게로 바꿔서 해보기</h2>
-    <ol>
-      <li><a href="${TOOL_URL}" target="_blank" rel="noopener">씽킹 매트릭스</a>를 엽니다.</li>
-      <li><b>⇄ JSON 입출력</b> → 아래 JSON을 붙여넣고 <b>불러오기</b>.</li>
-      <li>가게 이름·아이디어를 내 것으로 바꾸고, 빈 칸을 채웁니다.</li>
+    <h2>내 가게로 바꿔서 해보기 <small>3단계 · 약 2분</small></h2>
+    <ol class="doit">
+      <li><span class="n">1</span><div><b>보드를 복사합니다</b><p class="actions"><button type="button" id="copy" class="go" data-src="../../data/json/${esc(b.id)}.json">📋 예시 보드 복사</button><a class="btn alt" href="../../data/json/${esc(b.id)}.json" download="scamper-${esc(b.id)}.json">복사가 안 되면 내려받기</a></p></div></li>
+      <li><span class="n">2</span><div><b>씽킹 매트릭스를 엽니다</b><p class="actions"><a class="btn" href="${TOOL_URL}" target="_blank" rel="noopener">▶ 매트릭스 열기 ↗</a></p></div></li>
+      <li><span class="n">3</span><div><b>붙여넣고 불러옵니다</b><p>열린 화면에서 <b>⇄ JSON 입출력</b> → 붙여넣기(Ctrl/⌘+V) → <b>불러오기</b>. 그다음 가게 이름과 아이디어를 내 것으로 고치면 끝!</p></div></li>
     </ol>
-    <p class="actions">
-      <button type="button" id="copy" data-src="../../data/json/${esc(b.id)}.json">JSON 복사</button>
-      <a class="btn" href="../../data/json/${esc(b.id)}.json" download="scamper-${esc(b.id)}.json">JSON 내려받기</a>
-      <a class="btn alt" href="${TOOL_URL}" target="_blank" rel="noopener">매트릭스 열기 ↗</a>
-    </p>
-    <p id="copyMsg" class="hint" role="status"></p>
+    <p id="copyMsg" class="hint" role="status" aria-live="polite"></p>
+    <p class="hint">처음이라 낯설다면 <a href="../../#start">3분 체험 안내</a>에서 그림과 함께 따라 해보세요.</p>
   </section>
 
   ${
@@ -154,16 +150,36 @@ function businessPage(b, ctx) {
 </main>
 ${footer}
 <script>
-// Copy the JSON for this business (clipboard may be blocked, so fall back to a message)
-document.getElementById("copy").addEventListener("click", async (e) => {
-  const msg = document.getElementById("copyMsg");
-  try {
-    const text = await (await fetch(e.currentTarget.dataset.src)).text();
-    await navigator.clipboard.writeText(text);
-    msg.textContent = "복사했습니다. 매트릭스의 JSON 입출력 창에 붙여넣으세요.";
-  } catch (err) {
-    msg.textContent = "복사에 실패했습니다. ‘JSON 내려받기’를 사용해주세요.";
+// Prefetch the JSON so the click handler can copy synchronously (browsers drop the
+// user-gesture permission after an await, which makes clipboard writes fail).
+const copyBtn = document.getElementById("copy");
+const copyMsg = document.getElementById("copyMsg");
+let boardText = "";
+fetch(copyBtn.dataset.src).then((r) => r.text()).then((t) => { boardText = t; }).catch(() => {});
+
+function legacyCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.cssText = "position:fixed;opacity:0";
+  document.body.appendChild(ta);
+  ta.select();
+  const ok = document.execCommand("copy");
+  ta.remove();
+  return ok;
+}
+
+copyBtn.addEventListener("click", async () => {
+  let ok = false;
+  if (boardText) {
+    ok = legacyCopy(boardText);
+    if (!ok) {
+      try { await navigator.clipboard.writeText(boardText); ok = true; } catch (err) { ok = false; }
+    }
   }
+  copyMsg.textContent = ok
+    ? "✅ 복사했습니다! 2단계로 가서 매트릭스를 열고, ⇄ JSON 입출력 창에 붙여넣으세요."
+    : "복사에 실패했습니다. ‘복사가 안 되면 내려받기’를 눌러 파일을 받은 뒤, 내용을 열어 붙여넣어주세요.";
+  if (ok) copyBtn.classList.remove("go");
 });
 </script>
 </body>
